@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Entities", "Tas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.DataLib", "TaskManager.DataLib\TaskManager.DataLib.csproj", "{B3440ACF-0E51-473B-83A2-20A0ACD4E4E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.BusinessLib", "TaskManager.BusinessLib\TaskManager.BusinessLib.csproj", "{26500BA4-71C6-4014-A965-F2041775F69C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B3440ACF-0E51-473B-83A2-20A0ACD4E4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3440ACF-0E51-473B-83A2-20A0ACD4E4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3440ACF-0E51-473B-83A2-20A0ACD4E4E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26500BA4-71C6-4014-A965-F2041775F69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26500BA4-71C6-4014-A965-F2041775F69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26500BA4-71C6-4014-A965-F2041775F69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26500BA4-71C6-4014-A965-F2041775F69C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
