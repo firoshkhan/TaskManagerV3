@@ -23,7 +23,9 @@ namespace TaskManager.BusinessLib
             {
                 using (TaskMangerContext db = new TaskMangerContext())
                 {
-
+                    item.TaskProject = null;
+                    item.TaskUser = null;
+                    item.TaskParent = null;
                     db.Tasks.Add(item);
                     db.SaveChanges();
                     int id = item.TaskId;
@@ -133,6 +135,10 @@ namespace TaskManager.BusinessLib
             {
                 using (TaskMangerContext db = new TaskMangerContext())
                 {
+                    //  db.Entry(task).State = EntityState.Detached;
+                    task.TaskProject = null;
+                    task.TaskUser = null;
+                    task.TaskParent = null;
                     db.Entry(task).State = EntityState.Modified;
                     db.SaveChanges();
                 }

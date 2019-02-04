@@ -11,64 +11,131 @@ namespace TaskManager.API
 {
     public class ProjectController : ApiController
     {
-     
+
         [Route("GetAllProjects")]
-        public IHttpActionResult Get()  
+        public IHttpActionResult Get()
         {
-           
-            ProjectBL obj = new ProjectBL();
-            return Ok(obj.GetAllProjects());
+            try
+            {
+                ProjectBL obj = new ProjectBL();
+                return Ok(obj.GetAllProjects());
+            }
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
         [Route("GetProjectsById/{ProjectId}")]
         public IHttpActionResult GetProjectsById(int ProjectId)
         {
+            try
+            {
+                ProjectBL obj = new ProjectBL();
+                return Ok(obj.GetProjectById(ProjectId));
+            }
+            catch (Exception ex)
+            {
 
-            ProjectBL obj = new ProjectBL();
-            return Ok(obj.GetProjectById(ProjectId));
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
-        [Route("DeleteProject/{ProjectId}") ]
+        [Route("DeleteProject/{ProjectId}")]
         [HttpDelete]
         public IHttpActionResult Delete(int ProjectId)
         {
-            
-            ProjectBL obj = new ProjectBL();
-            Project project= obj.GetProjectById(ProjectId);
-            if (project == null)
+            try
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                ProjectBL obj = new ProjectBL();
+                Project project = obj.GetProjectById(ProjectId);
+                if (project == null)
                 {
-                    Content = new StringContent(string.Format("No Project  with ID = {0}", ProjectId)),
-                    ReasonPhrase = "Project ID Not Found"
+                    var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                    {
+                        Content = new StringContent(string.Format("No Project  with ID = {0}", ProjectId)),
+                        ReasonPhrase = "Project ID Not Found"
+                    };
+                    throw new HttpResponseException(resp);
+                }
+
+                obj.DeleteProject(ProjectId);
+                return Ok(obj.GetAllProjects());
+            }
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
                 };
                 throw new HttpResponseException(resp);
-            }
 
-            obj.DeleteProject(ProjectId);
-            return Ok(obj.GetAllProjects());
+            }
         }
         [Route("AddProject")]
         [HttpPost]
         public IHttpActionResult Post(Project project)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                ProjectBL obj = new ProjectBL();
+                obj.AddProject(project);
+                return Ok(obj.GetAllProjects());
             }
-            ProjectBL obj = new ProjectBL();
-            obj.AddProject(project);
-            return Ok(obj.GetAllProjects());
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
         [Route("UpdateProject")]
         public IHttpActionResult Put(Project project)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                ProjectBL obj = new ProjectBL();
+                obj.UpdateProject(project);
+                return Ok(obj.GetAllProjects());
             }
-            ProjectBL obj = new ProjectBL();
-            obj.UpdateProject(project);
-            return Ok(obj.GetAllProjects());
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
+
         }
-        
     }
 }

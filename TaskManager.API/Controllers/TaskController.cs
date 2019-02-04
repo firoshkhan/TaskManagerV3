@@ -11,71 +11,150 @@ namespace TaskManager.API
 {
     public class TaskController : ApiController
     {
-     
+
         [Route("GetAllTasks")]
-        public IHttpActionResult Get()  
+        public IHttpActionResult Get()
         {
-           
-            TaskBL obj = new TaskBL();
-            return Ok(obj.GetAllTasks());
+            try
+            {
+                TaskBL obj = new TaskBL();
+                return Ok(obj.GetAllTasks());
+            }
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
         [Route("GetTasksById/{TaskId}")]
         public IHttpActionResult GetTasksById(int TaskId)
         {
+            try
+            {
+                TaskBL obj = new TaskBL();
+                return Ok(obj.GetTaskById(TaskId));
+            }
+            catch (Exception ex)
+            {
 
-            TaskBL obj = new TaskBL();
-            return Ok(obj.GetTaskById(TaskId));
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
         [Route("GetTasksByProject/{ProjId}")]
         public IHttpActionResult GetTaskByProjectId(int ProjId)
         {
+            try
+            {
+                TaskBL obj = new TaskBL();
+                return Ok(obj.GetTaskByProjectId(ProjId));
+            }
+            catch (Exception ex)
+            {
 
-            TaskBL obj = new TaskBL();
-            return Ok(obj.GetTaskByProjectId(ProjId));
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
-        [Route("DeleteTask/{TaskId}") ]
+        [Route("DeleteTask/{TaskId}")]
         [HttpDelete]
         public IHttpActionResult Delete(int TaskId)
         {
-            
-            TaskBL obj = new TaskBL();
-            Task task= obj.GetTaskById(TaskId);
-            if (task == null)
+            try
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                TaskBL obj = new TaskBL();
+                Task task = obj.GetTaskById(TaskId);
+                if (task == null)
                 {
-                    Content = new StringContent(string.Format("No task  with ID = {0}", TaskId)),
-                    ReasonPhrase = "Task ID Not Found"
+                    var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                    {
+                        Content = new StringContent(string.Format("No task  with ID = {0}", TaskId)),
+                        ReasonPhrase = "Task ID Not Found"
+                    };
+                    throw new HttpResponseException(resp);
+                }
+
+                obj.DeleteTask(TaskId);
+                return Ok("Task Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
                 };
                 throw new HttpResponseException(resp);
-            }
 
-            obj.DeleteTask(TaskId);
-            return Ok("Task Deleted Sucessfully");
+            }
         }
         [Route("AddTask")]
         [HttpPost]
         public IHttpActionResult Post(Task task)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                TaskBL obj = new TaskBL();
+                obj.AddTask(task);
+                return Ok(task.TaskId.ToString());
             }
-            TaskBL obj = new TaskBL();
-            obj.AddTask(task);
-            return Ok(task.TaskId.ToString());
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
         [Route("UpdateTask")]
         public IHttpActionResult Put(Task task)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                TaskBL obj = new TaskBL();
+                obj.UpdateTask(task);
+                return Ok("Task Updated Sucessfully");
             }
-            TaskBL obj = new TaskBL();
-            obj.UpdateTask(task);
-            return Ok("Task Updated Sucessfully");
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(ex.InnerException.InnerException.Message.ToString()),
+                    ReasonPhrase = "Action Failed !"
+                };
+                throw new HttpResponseException(resp);
+
+            }
         }
-        
     }
 }

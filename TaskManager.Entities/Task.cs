@@ -25,11 +25,11 @@ namespace TaskManager.Entities
         public bool IsParentTask { get; set; }
         public int? TaskProjectId { get; set; }
         [ForeignKey("TaskProjectId")]
-        public virtual Project TaskProject { get; set; }
+        public  Project TaskProject { get; set; }
 
         public int? TaskUserId { get; set; }
         [ForeignKey("TaskUserId")]
-        public virtual User TaskUser { get; set; }
+        public  User TaskUser { get; set; }
 
         public int? TaskParentId { get; set; }
         [ForeignKey("TaskParentId")]

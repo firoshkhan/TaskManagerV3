@@ -24,8 +24,9 @@ namespace TaskManager.BusinessLib
             {
                 using (TaskMangerContext db = new TaskMangerContext())
                 {
-
+                    item.ProjectManager = null;
                     db.Projects.Add(item);
+                   
                     db.SaveChanges();
                     int id = item.ProjectId;
                 }
@@ -136,6 +137,7 @@ namespace TaskManager.BusinessLib
             {
                 using (TaskMangerContext db = new TaskMangerContext())
                 {
+                    project.ProjectManager = null;
                     db.Entry(project).State = EntityState.Modified;
                     db.SaveChanges();
                 }
