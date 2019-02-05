@@ -15,7 +15,7 @@ using System.Web.Http.Results;
 namespace Test
 {
     [TestFixture]
-    class TestUserServices
+    public  class TestUserServices
     {
 
         [Test]

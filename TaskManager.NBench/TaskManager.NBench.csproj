@@ -83,6 +83,10 @@
       <Project>{5bb134ce-2ef3-4560-a9d3-904d56b955be}</Project>
       <Name>TaskManager.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TaskManager.Test\TaskManager.Test.csproj">
+      <Project>{ff8e050a-240c-42c8-bfe1-b5fc3d2f673a}</Project>
+      <Name>TaskManager.Test</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
