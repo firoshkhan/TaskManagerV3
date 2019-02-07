@@ -22,7 +22,7 @@ namespace TaskManager.NBenchTest
 
         [PerfBenchmark(Description = "Test to ensure that a minimal throughput test can be rapidly executed.",
             NumberOfIterations = 3, RunMode = RunMode.Throughput,
-            RunTimeMilliseconds = 60000, TestMode = TestMode.Test)]
+            RunTimeMilliseconds = 6000, TestMode = TestMode.Test)]
         [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
         [MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.SixtyFourKb)]
         [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.AllGc, MustBe.ExactlyEqualTo, 0.0d)]
@@ -35,23 +35,10 @@ namespace TaskManager.NBenchTest
 
         }
 
+       
         [PerfBenchmark(Description = "Test to ensure that a minimal throughput test can be rapidly executed.",
            NumberOfIterations = 3, RunMode = RunMode.Throughput,
-           RunTimeMilliseconds = 60000, TestMode = TestMode.Test)]
-        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
-        [MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.SixtyFourKb)]
-        [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.AllGc, MustBe.ExactlyEqualTo, 0.0d)]
-        public void Benchmark1(BenchmarkContext context)
-        {
-            // _counter.Increment();
-            //  var bytes = new byte[0];
-            TaskManager.BusinessLib.TaskBL obj = new TaskBL();
-            int Count = obj.GetAllTasks().Count;
-
-        }
-        [PerfBenchmark(Description = "Test to ensure that a minimal throughput test can be rapidly executed.",
-           NumberOfIterations = 3, RunMode = RunMode.Throughput,
-           RunTimeMilliseconds = 60000, TestMode = TestMode.Test)]
+           RunTimeMilliseconds = 6000, TestMode = TestMode.Test)]
         [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
         [MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.SixtyFourKb)]
         [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.AllGc, MustBe.ExactlyEqualTo, 0.0d)]
@@ -74,8 +61,9 @@ namespace TaskManager.NBenchTest
         {
             // _counter.Increment();
             //  var bytes = new byte[0];
-           Test.TestProjectBL obj = new Test.TestProjectBL();
-            obj.TestGetAllProjects();
+            TaskManager.BusinessLib.ProjectBL obj = new ProjectBL();
+
+            int Count = obj.GetAllProjects().Count;
 
         }
 
